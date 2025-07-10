@@ -1,7 +1,11 @@
-import React from 'react'
-
 export default function Header() {
   return (
-    <div>Header</div>
+    <header className="header-bar">
+      <div className="header-title">MFT Shop</div>
+      <div className="header-cart">
+        <span role="img" aria-label="cart" className="cart-icon">🛒</span>
+        <span className="cart-count">0</span>
+      </div>
+    </header>
   )
 }

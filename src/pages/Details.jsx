@@ -11,11 +11,9 @@ export default function Details() {
   const id = query.get('id');
   const [product, setProduct] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
     if (!id) {
-      setError('No product id provided');
       setLoading(false);
       return;
     }
@@ -23,16 +21,12 @@ export default function Details() {
       .then(res => {
         if (res.data.isSuccess) {
           setProduct(res.data.data);
-        } else {
-          setError(res.data.message || 'Failed to fetch product');
         }
       })
-      .catch(err => setError(err.message))
       .finally(() => setLoading(false));
   }, [id]);
 
   if (loading) return <div className="form-container">Loading...</div>;
-  if (error) return <div className="form-container form-fail">{error}</div>;
   if (!product) return null;
 
   return (
