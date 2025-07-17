@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import ProductItem from '../components/ProductItem';
 
 export default function Home() {
   // state برای نگهداری محصولات و وضعیت loading
@@ -32,6 +33,20 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+  // هندلرهای سبد خرید (نمونه اولیه)
+  const handleAddToCart = (product) => {
+    // TODO: افزودن به سبد خرید
+    toast.success('محصول به سبد خرید اضافه شد');
+  };
+  const handleRemoveFromCart = (productId) => {
+    // TODO: حذف از سبد خرید
+    toast.info('محصول از سبد خرید حذف شد');
+  };
+  const handleViewDetails = (productId) => {
+    // TODO: نمایش جزئیات
+    toast('نمایش جزئیات محصول: ' + productId);
+  };
+
   // تابع تبدیل قیمت به فرمت قابل خواندن
   const formatPrice = (price) => {
     return price.toLocaleString('fa-IR') + ' تومان';
@@ -54,34 +69,13 @@ export default function Home() {
         {
           products.map((product) => (
             <Col key={product.id} lg={4} md={6} sm={12} className="mb-4">
-              <Card className="h-100 shadow">
-                {/* تصویر محصول */}
-                <Card.Img
-                  variant="top"
-                  src={`https://nowruzi.top/${product.image}`}
-                  style={{ height: '200px', objectFit: 'contain' }}
-                />
-
-                <Card.Body className="d-flex flex-column">
-                  {/* عنوان محصول */}
-                  <Card.Title>{product.title}</Card.Title>
-
-                  {/* قیمت */}
-                  <Card.Text className="fw-bold text-primary fs-5">
-                    {formatPrice(product.price)}
-                  </Card.Text>
-
-                  {/* دکمه‌های عملیات */}
-                  <div className="mt-auto">
-                    <Button variant="primary" className="w-100 mb-2">
-                      افزودن به سبد خرید
-                    </Button>
-                    <Button variant="outline-secondary" className="w-100">
-                      مشاهده جزئیات
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
+              <ProductItem
+                product={product}
+                onAddToCart={handleAddToCart}
+                onRemoveFromCart={handleRemoveFromCart}
+                onViewDetails={handleViewDetails}
+                isInCart={false} // فعلاً مقدار ثابت
+              />
             </Col>
           ))}
       </Row>
