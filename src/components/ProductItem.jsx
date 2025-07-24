@@ -11,15 +11,19 @@ export default function ProductItem({ product }) {
 
     async function handleAddToCart() {
         setLoading(true);
-        await addToCart(product.id);
-        setCount(count + 1);
+        const result = await addToCart(product.id);
+        if (result) {
+            setCount(count + 1);
+        }
         setLoading(false);
     }
 
     async function handleRemoveFromCart() {
         setLoading(true);
-        await removeFromCart(product.id);
-        setCount(count - 1);
+        const result = await removeFromCart(product.id);
+        if (result) {
+            setCount(count - 1);
+        }
         setLoading(false);
     }
 
