@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/Home";
@@ -9,7 +9,7 @@ import Details from "./pages/Details";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 
-function AppContent() {
+export default function App() {
   const location = useLocation();
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
@@ -37,13 +37,5 @@ function AppContent() {
         theme="light"
       />
     </>
-  );
-}
-
-export default function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
   );
 }

@@ -1,13 +1,31 @@
 import { Navbar, Nav, Container, Form, Button } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import useCartStore from '../hooks/CartStore';
 
 export default function Header() {
   const navigate = useNavigate();
   const totalCount = useCartStore(x => x.totalCount);
+  const setTotalCount = useCartStore(x => x.setTotalCount);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userFullName, setUserFullName] = useState('');
+
+  // دریافت تعداد محصولات سبد خرید
+  const fetchCartCount = async (userId) => {
+    try {
+      const response = await axios.get(`https://nowruzi.top/api/Cart/GetCart?userId=${userId}`);
+      
+      if (response.data.isSuccess) {
+        setTotalCount(response.data.data.totalItems);
+      } else {
+        setTotalCount(0);
+      }
+    } catch (error) {
+      console.error('خطا در دریافت تعداد سبد خرید:', error);
+      setTotalCount(0);
+    }
+  };
 
   // بررسی وضعیت ورود کاربر
   useEffect(() => {
@@ -18,9 +36,12 @@ export default function Header() {
       if (userId && fullName) {
         setIsLoggedIn(true);
         setUserFullName(fullName);
+        // دریافت تعداد محصولات سبد خرید
+        fetchCartCount(userId);
       } else {
         setIsLoggedIn(false);
         setUserFullName('');
+        setTotalCount(0);
       }
     };
 
@@ -33,6 +54,7 @@ export default function Header() {
     localStorage.removeItem('fullName');
     setIsLoggedIn(false);
     setUserFullName('');
+    setTotalCount(0);
     navigate('/');
   };
 

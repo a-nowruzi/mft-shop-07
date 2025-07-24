@@ -3,11 +3,13 @@ import { Container, Card, Row, Col, Button, Badge, Spinner, Alert } from 'react-
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import useCartStore from '../hooks/CartStore';
 
 export default function Cart() {
-    const navigate = useNavigate();
-    const [cartData, setCartData] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const setTotalCount = useCartStore(x => x.setTotalCount);
+  const [cartData, setCartData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
     // دریافت اطلاعات سبد خرید
     const fetchCartData = async () => {
@@ -22,11 +24,13 @@ export default function Cart() {
 
             const response = await axios.get(`https://nowruzi.top/api/Cart/GetCart?userId=${userId}`);
 
-            if (response.data.isSuccess) {
-                setCartData(response.data.data);
-            } else {
-                toast.error(response.data.message || 'خطا در دریافت سبد خرید');
-            }
+                  if (response.data.isSuccess) {
+        setCartData(response.data.data);
+        // تنظیم تعداد کل محصولات در store
+        setTotalCount(response.data.data.totalItems);
+      } else {
+        toast.error(response.data.message || 'خطا در دریافت سبد خرید');
+      }
 
         } catch (error) {
             console.error('خطا در دریافت سبد خرید:', error);

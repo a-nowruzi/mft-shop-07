@@ -5,6 +5,7 @@ const useCartStore = create((set) => ({
   totalCount: 0,
   incrementTotalCount: () => set((x: any) => ({ totalCount: x.totalCount + 1 })),
   decrementTotalCount: () => set((x: any) => ({ totalCount: x.totalCount - 1 })),
+  setTotalCount: (count: number) => set({ totalCount: count }),
 }));
 
 export default useCartStore;
