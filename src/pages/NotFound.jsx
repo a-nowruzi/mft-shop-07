@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 export default function NotFound() {
+  const navigate = useNavigate();
+
   return (
     <Container fluid className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
       <Row className="justify-content-center">
@@ -19,11 +21,11 @@ export default function NotFound() {
           </div>
 
           <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-            <Button as={Link} to="/" variant="primary" size="lg" className="px-4 py-2">
+            <Button onClick={() => navigate('/')} variant="primary" size="lg" className="px-4 py-2">
               بازگشت به صفحه اصلی
             </Button>
             <Button 
-              onClick={() => window.history.back()} 
+              onClick={() => navigate(-1)} 
               variant="outline-secondary" 
               size="lg" 
               className="px-4 py-2">

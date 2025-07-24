@@ -74,12 +74,12 @@ export default function Header() {
             {
               isLoggedIn
                 ? <>
-                  <Button variant="outline-light" className="ms-2" onClick={() => navigate('/cart')}>
-                    سبد خرید ({totalCount})
-                  </Button>
                   <div className="text-white d-flex align-items-center ms-3">
                     <span className="me-2">خوش آمدید، {userFullName}</span>
                   </div>
+                  <Button variant="outline-light" className="ms-2" onClick={() => navigate('/cart')}>
+                    سبد خرید ({totalCount})
+                  </Button>
                   <Button variant="outline-danger" className="ms-2" onClick={handleLogout}>
                     خروج
                   </Button>

@@ -6,10 +6,11 @@ import { toast } from 'react-toastify';
 import useCartStore from '../hooks/CartStore';
 
 export default function Cart() {
-  const navigate = useNavigate();
-  const setTotalCount = useCartStore(x => x.setTotalCount);
-  const [cartData, setCartData] = useState(null);
-  const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const setTotalCount = useCartStore(x => x.setTotalCount);
+    const removeFromCart = useCartStore(x => x.removeFromCart);
+    const [cartData, setCartData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     // دریافت اطلاعات سبد خرید
     const fetchCartData = async () => {
@@ -24,13 +25,13 @@ export default function Cart() {
 
             const response = await axios.get(`https://nowruzi.top/api/Cart/GetCart?userId=${userId}`);
 
-                  if (response.data.isSuccess) {
-        setCartData(response.data.data);
-        // تنظیم تعداد کل محصولات در store
-        setTotalCount(response.data.data.totalItems);
-      } else {
-        toast.error(response.data.message || 'خطا در دریافت سبد خرید');
-      }
+            if (response.data.isSuccess) {
+                setCartData(response.data.data);
+                // تنظیم تعداد کل محصولات در store
+                setTotalCount(response.data.data.totalItems);
+            } else {
+                toast.error(response.data.message || 'خطا در دریافت سبد خرید');
+            }
 
         } catch (error) {
             console.error('خطا در دریافت سبد خرید:', error);
@@ -44,6 +45,19 @@ export default function Cart() {
             }
         } finally {
             setLoading(false);
+        }
+    };
+
+    // حذف محصول از سبد خرید
+    const handleRemoveFromCart = async (productId) => {
+        try {
+            const success = await removeFromCart(productId);
+            if (success) {
+                // به‌روزرسانی اطلاعات سبد خرید
+                await fetchCartData();
+            }
+        } catch (error) {
+            console.error('خطا در حذف محصول:', error);
         }
     };
 
@@ -116,7 +130,10 @@ export default function Cart() {
                                                     قیمت واحد: {(item.productPrice).toLocaleString('fa-IR') + ' تومان'}
                                                 </small>
                                             </div>
-                                            <Button variant="outline-danger" size="sm">
+                                            <Button
+                                                variant="outline-danger"
+                                                size="sm"
+                                                onClick={() => handleRemoveFromCart(item.productId)}>
                                                 حذف
                                             </Button>
                                         </Col>

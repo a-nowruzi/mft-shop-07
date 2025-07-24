@@ -12,7 +12,13 @@ export default function Home() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('https://nowruzi.top/api/Product/GetProducts');
+      
+      const userId = localStorage.getItem('userId');
+      const url = userId 
+        ? `https://nowruzi.top/api/Product/GetProducts?UserId=${userId}`
+        : 'https://nowruzi.top/api/Product/GetProducts';
+
+      const response = await axios.get(url);
 
       if (response.data.isSuccess) {
         setProducts(response.data.data.products);
@@ -21,7 +27,7 @@ export default function Home() {
       }
     } catch (error) {
       console.error('خطا در دریافت محصولات:', error);
-      setError('خطا در اتصال به سرور');
+      toast.error('خطا در اتصال به سرور');
     } finally {
       setLoading(false);
     }
