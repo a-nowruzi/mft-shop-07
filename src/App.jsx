@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Cart from "./pages/Cart";
 import Details from "./pages/Details";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
@@ -17,6 +18,7 @@ function AppContent() {
       {isAuthPage ? <></> : <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/details" element={<Details />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

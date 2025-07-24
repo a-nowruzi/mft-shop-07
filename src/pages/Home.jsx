@@ -12,7 +12,7 @@ export default function Home() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('https://nowruzi.top/api/Product');
+      const response = await axios.get('https://nowruzi.top/api/Product/GetProducts');
 
       if (response.data.isSuccess) {
         setProducts(response.data.data.products);
@@ -31,11 +31,6 @@ export default function Home() {
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  // تابع تبدیل قیمت به فرمت قابل خواندن
-  const formatPrice = (price) => {
-    return price.toLocaleString('fa-IR') + ' تومان';
-  };
 
   // نمایش لودینگ
   if (loading) {
