@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Details from "./pages/Details";
+import Locations from "./pages/Locations";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/details" element={<Details />} />
+        <Route path="/locations" element={<Locations />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
