@@ -6,8 +6,8 @@ import { useState } from 'react';
 export default function ProductItem({ product }) {
 
     const [count, setCount] = useState(0);
-    const addToCart = useCartStore(x => x.increment);
-    const removeFromCart = useCartStore(x => x.decrement);
+    const addToCart = useCartStore(x => x.incrementTotalCount);
+    const removeFromCart = useCartStore(x => x.decrementTotalCount);
 
     function handleAddToCart() {
         addToCart();

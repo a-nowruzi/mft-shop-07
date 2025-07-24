@@ -12,7 +12,7 @@ function AppContent() {
 
   return (
     <>
-      {!isAuthPage && <Header />}
+      {isAuthPage ? <></> : <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/details" element={<Details />} />

@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import ProductItem from '../components/ProductItem';
 
 export default function Home() {
-  // state برای نگهداری محصولات و وضعیت loading
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,26 +32,12 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  // هندلرهای سبد خرید (نمونه اولیه)
-  const handleAddToCart = (product) => {
-    // TODO: افزودن به سبد خرید
-    toast.success('محصول به سبد خرید اضافه شد');
-  };
-  const handleRemoveFromCart = (productId) => {
-    // TODO: حذف از سبد خرید
-    toast.info('محصول از سبد خرید حذف شد');
-  };
-  const handleViewDetails = (productId) => {
-    // TODO: نمایش جزئیات
-    toast('نمایش جزئیات محصول: ' + productId);
-  };
-
   // تابع تبدیل قیمت به فرمت قابل خواندن
   const formatPrice = (price) => {
     return price.toLocaleString('fa-IR') + ' تومان';
   };
 
-  // نمایش loading
+  // نمایش لودینگ
   if (loading) {
     return (
       <Container className="d-flex justify-content-center align-items-center min-vh-100">
@@ -69,13 +54,7 @@ export default function Home() {
         {
           products.map((product) => (
             <Col key={product.id} lg={4} md={6} sm={12} className="mb-4">
-              <ProductItem
-                product={product}
-                onAddToCart={handleAddToCart}
-                onRemoveFromCart={handleRemoveFromCart}
-                onViewDetails={handleViewDetails}
-                isInCart={false} // فعلاً مقدار ثابت
-              />
+              <ProductItem product={product} />
             </Col>
           ))}
       </Row>
