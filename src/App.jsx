@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
-import Details from "./pages/Details";
+import ProductDetails from "./pages/ProductDetails";
 import Locations from "./pages/Locations";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
@@ -20,7 +20,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/details" element={<Details />} />
+        <Route path="/product-details/:productId" element={<ProductDetails />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
