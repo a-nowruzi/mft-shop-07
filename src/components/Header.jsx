@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container, Form, Button } from 'react-bootstrap'
+import { Navbar, Nav, Container, Form, Button, NavDropdown } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -10,6 +10,28 @@ export default function Header() {
   const setTotalCount = useCartStore(x => x.setTotalCount);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userFullName, setUserFullName] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // دریافت دسته‌بندی‌ها از API
+  const fetchCategories = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('https://nowruzi.top/api/Product/GetCategories');
+      
+      if (response.data.isSuccess) {
+        setCategories(response.data.data.categories);
+      } else {
+        console.error('خطا در دریافت دسته‌بندی‌ها:', response.data.message);
+        setCategories([]);
+      }
+    } catch (error) {
+      console.error('خطا در دریافت دسته‌بندی‌ها:', error);
+      setCategories([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // دریافت تعداد محصولات سبد خرید
   const fetchCartCount = async (userId) => {
@@ -46,6 +68,8 @@ export default function Header() {
     };
 
     checkLoginStatus();
+    // دریافت دسته‌بندی‌ها
+    fetchCategories();
   }, []);
 
   // تابع خروج از حساب کاربری
@@ -64,8 +88,29 @@ export default function Header() {
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto gap-3">
+          <Nav className="ms-auto gap-3 align-items-center">
             <Link to="/" className="text-white text-decoration-none">خانه</Link>
+            
+            {/* منوی دسته‌بندی‌ها */}
+            {!loading && categories.length > 0 && (
+              <NavDropdown 
+                title="دسته‌بندی‌ها" 
+                id="categories-dropdown"
+                className="text-white"
+              >
+                {categories.map((category) => (
+                  <NavDropdown.Item 
+                    key={category.id}
+                    as={Link}
+                    to={`/category/${category.id}`}
+                    className="text-end"
+                  >
+                    {category.name}
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
+            )}
+            
             <Link to="/about" className="text-white text-decoration-none">درباره ما</Link>
             <Link to="/locations" className="text-white text-decoration-none">مکان های فروش</Link>
           </Nav>
@@ -74,7 +119,7 @@ export default function Header() {
             {
               isLoggedIn
                 ? <>
-                  <div className="text-white d-flex align-items-center ms-3">
+                  <div className="text-white d-flex align-items-center ms-3 mt-2">
                     <span className="me-2">خوش آمدید، {userFullName}</span>
                   </div>
                   <Button variant="outline-light" className="ms-2" onClick={() => navigate('/cart')}>
