@@ -23,7 +23,7 @@ export default function About() {
             </Card.Header>
             <Card.Body>
               <div className="text-center mb-4">
-                <h2 className="h4 text-muted">خوش آمدید به فروشگاه آنلاین ما</h2>
+                <h2 className="h4 text-muted">به فروشگاه آنلاین ما خوش آمدید</h2>
                 <p className="lead">
                   ما متعهد به ارائه بهترین محصولات و خدمات به مشتریان خود هستیم.
                 </p>
@@ -52,7 +52,6 @@ export default function About() {
                   </ul>
                 </div>
                 <div className="col-md-6">
-                  <h3 className="h5">آمار</h3>
                   <div className="text-center">
                     <div className="display-6 text-primary fw-bold">1000+</div>
                     <small className="text-muted">مشتری راضی</small>
@@ -95,7 +94,7 @@ export default function About() {
 
               <div className="text-center mt-4">
                 <small className="text-muted">
-                  © 2024 فروشگاه آنلاین. تمامی حقوق محفوظ است.
+                  © 2025 فروشگاه آنلاین. تمامی حقوق محفوظ است.
                 </small>
               </div>
             </Card.Body>

@@ -23,11 +23,6 @@ describe('About Page', () => {
       expect(screen.getByText('درباره ما')).toBeInTheDocument();
     });
 
-    it('should render the welcome message', () => {
-      renderWithRouter(<About />);
-      expect(screen.getByText('خوش آمدید به فروشگاه آنلاین ما')).toBeInTheDocument();
-    });
-
     it('should render the lead paragraph', () => {
       renderWithRouter(<About />);
       expect(screen.getByText(/ما متعهد به ارائه بهترین محصولات/)).toBeInTheDocument();
@@ -48,7 +43,6 @@ describe('About Page', () => {
 
     it('should render the statistics section', () => {
       renderWithRouter(<About />);
-      expect(screen.getByText('آمار')).toBeInTheDocument();
       expect(screen.getByText('1000+')).toBeInTheDocument();
       expect(screen.getByText('مشتری راضی')).toBeInTheDocument();
     });

@@ -10,6 +10,7 @@ import CategoryProducts from "./pages/CategoryProducts";
 import Locations from "./pages/Locations";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
+import About from "./pages/About";
 
 export default function App() {
   const location = useLocation();
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/locations" element={<Locations />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer
